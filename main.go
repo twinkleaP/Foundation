@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 )
 
 // read a go file
@@ -26,6 +27,26 @@ func main() {
 		words[scan.Text()]++
 	}
 
-	fmt.Println(words)
+	fmt.Println(words) // print map
+
+	type data struct {
+		key   string
+		value int
+	}
+
+	var v []data
+
+	for key, value := range words {
+		v = append(v, data{key, value})
+	}
+
+	sort.Slice(v, func(i int, j int) bool {
+
+		return v[i].value > v[j].value
+
+	})
+	for _, s := range v {
+		fmt.Println(s.key, "appears", s.value, "times")
+	}
 
 }
